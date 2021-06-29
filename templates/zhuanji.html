@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>浅音乐</title>
+<link rel=stylesheet type=text/css href="/static/css/style.css">
+</head>
+
+<div>
+<div id="Jay">
+  <div id="daohanglan">
+    <div id="daohangzhongbu">
+      <div id="logo"><a href="http://127.0.0.1:8000">浅音乐</a></div>
+      <!-- 下拉导航开始 -->
+      <div id="my-daohanglan" >
+        <ul>
+          <li><a href="http://127.0.0.1:8000" >首页</a></li>
+          <li><a href="" >推荐</a></li>
+          <li><a href="#" >试听</a> <img src="/static/images/xiajiantou.svg" alt="" width="12" height="12">
+            <ul>
+              <li><a href="yyh" >千千阙歌</a></li>
+          <li><a href="sjmr" >心做し</a></li>
+				<li><a href="shbk" >Walk Thru Fire</a></li>
+				<li><a href="wsrcxx" >夏天的风</a></li>
+            </ul>
+          </li>
+          {% if users %}
+        <li style="color: #fa79d7">欢迎您:<em>{{ users.name }}</em>
+        <ul>
+            <li><a href="my">个人页面</a></li>
+                <li><a href="changepwd">修改密码</a></li>
+                <li><a href="logout">注销</a></li>
+        </ul>
+        </li>
+        {% else %}
+        <li><a href="" >登录</a> <img src="/static/images/xiajiantou.svg" width="12" height="12">
+		  <ul>
+          <li><a href="login" >登录</a></li>
+          <li><a href="register" >注册</a></li>
+          </ul>
+        </li>
+        {% endif %}
+        </ul>
+      </div>
+      <!-- 下拉导航结束 --> 
+    </div>
+  </div>
+
+    {% for item in items %}
+        {% if forloop.counter == 1 or forloop.counter == 4 or forloop.counter == 7 or forloop.counter == 10 or forloop.counter == 13 or forloop.counter == 16 or forloop.counter == 19 or forloop.counter == 22  or forloop.counter == 25 or forloop.counter == 28 or forloop.counter == 31 or forloop.counter == 34 or forloop.counter == 37 or forloop.counter == 40 or forloop.counter == 43 or forloop.counter == 46 or forloop.counter == 49%}
+            <div id="tuijian">
+              <div id="tuijian01"><a href="songs?code={{ item.code }}"><img src="{{ item.photo_face_url }}" width="290" height="270" /></a></div>
+            {% if forloop.last %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if forloop.counter == 2 or forloop.counter == 5 or forloop.counter == 8 or forloop.counter == 11 or forloop.counter == 14 or forloop.counter == 17 or forloop.counter == 20 or forloop.counter == 23  or forloop.counter == 26 or forloop.counter == 29 or forloop.counter == 32 or forloop.counter == 35 or forloop.counter == 38 or forloop.counter == 41 or forloop.counter == 44 or forloop.counter == 47 or forloop.counter == 50%}
+            <div id="tuijian02"><a href="songs?code={{ item.code }}"><img src="{{ item.photo_face_url }}" width="290" height="270" /></a></div>
+            {% if forloop.last %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if forloop.counter == 3 or forloop.counter == 6 or forloop.counter == 9 or forloop.counter == 12 or forloop.counter == 15 or forloop.counter == 18 or forloop.counter == 21 or forloop.counter == 24  or forloop.counter == 27 or forloop.counter == 30 or forloop.counter == 33 or forloop.counter == 36 or forloop.counter == 39 or forloop.counter == 42 or forloop.counter == 45 or forloop.counter == 48 or forloop.counter == 51%}
+            <div id="tuijian02"><a href="songs?code={{ item.code }}"><img src="{{ item.photo_face_url }}" width="290" height="270" /></a></div>
+            </div>
+        {% endif %}
+        
+    {% endfor %}
+
+
+
+
+  <div id="dibu">
+    <div id="dibuzhongbu">
+    <table width="1048" border="0">
+  <tr>
+    <td align="center">&nbsp;</td>
+  </tr>
+<tr>
+    <td align="center">&nbsp;&nbsp; 浅音乐</td>
+  </tr>
+  <tr>
+    <td align="center">© 2021 SHALLOW DREAM.All Rights Reserved.</td>
+  </tr>
+</table>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

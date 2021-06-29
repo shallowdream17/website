@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>浅音乐</title>
+<link rel=stylesheet type=text/css href="/static/css/style.css">
+</head>
+
+<body>
+<div id="Jay">
+  <div id="daohanglan">
+    <div id="daohangzhongbu">
+      <div id="logo"><a href="http://127.0.0.1:8000">浅音乐</a></div>
+      <!-- 下拉导航开始 -->
+      <div id="my-daohanglan" >
+        <ul>
+          <li><a href="http://127.0.0.1:8000" >首页</a></li>
+          <li><a href="zhuanji" >推荐</a></li>
+          <li><a href="" >实体</a> <img src="/static/images/xiajiantou.svg" alt="" width="12" height="12">
+            <ul>
+              <li><a href="yyh" >千千阙歌</a></li>
+          <li><a href="sjmr" >心做し</a></li>
+				<li><a href="shbk" >Walk Thru Fire</a></li>
+				<li><a href="wsrcxx" >夏天的风</a></li>
+            </ul>
+          </li>
+          <li><a href="login" >登录</a></li>
+        </ul>
+      </div>
+      <!-- 下拉导航结束 -->
+    </div>
+  </div>
+  <div id="login">
+  <div class="divAll">
+  <div id="contents">
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp; 欢迎登录</h3>
+   <hr width="95%" color="#f2f2f2"/>
+      <p style="color:red">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{ errmsg }}</p>
+   <form action="/register" onSubmit="return checkForm()" method="POST">
+       {% csrf_token %}
+       <div id="form-itemGroup">
+           <label for="userName">用&nbsp; 户&nbsp; 名：</label>
+           <input type="text" name="user_name"  id="userName" class="userName" onBlur="checkUserName()" oninput="checkUserName()">
+           <span class="default" id="nameErr" color="#FF0000">至少3位用户名</span>
+       </div>
+       <div id="form-itemGroup">
+           <label for="userPasword">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 码：</label>
+           <input type="password" name="user_pwd" id="userPasword" class="userName" onBlur="checkPassword()" oninput="checkPassword()">
+           <span class="default" id="passwordErr">4到16位的密码</span>
+       </div>
+       <div id="form-itemGroup">
+           <label for="userConfirmPasword">确认密码：</label>
+           <input type="password" id="userConfirmPasword" class="userName" onBlur="ConfirmPassword()" oninput="ConfirmPassword()">
+           <span class="default" id="conPasswordErr">再次输入</span>
+       </div>
+       <div id="form-itemGroup">
+           <label for="userPhone">手机号码：</label>
+           <input type="text" name="user_phone" id="userPhone" class="userName" onBlur="checkPhone()" oninput="checkPhone()">
+           <span class="default" id="phoneErr">手机号码</span>
+       </div>
+       <div id="form-itemGroup">
+           <label for="userEmail">邮箱：</label>
+           <input type="text" name="user_email" id="userEmail" class="userName" onBlur="checkEmail()" oninput="checkEmail()">
+           <span class="default" id="emailErr">邮箱</span>
+       </div>
+       <div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <button type="submit" class="divBtn">注册</button>
+       </div>
+   </form>
+ </div>
+</div>
+ <script type="text/javascript">
+ function checkForm(){
+  var nametip = checkUserName();
+  var passtip = checkPassword();
+  var conpasstip = ConfirmPassword();
+  var phonetip = checkPhone();
+  var emailtip=checkEmail();
+  return nametip && passtip && conpasstip && phonetip &&emailtip;
+  }
+  //验证用户名
+  function checkUserName(){
+  var username = document.getElementById('userName');
+  var errname = document.getElementById('nameErr');
+  var pattern = /^\w{3,}$/;  //用户名格式正则表达式：用户名要至少三位
+  if(username.value.length == 0){
+    errname.innerHTML="用户名不能为空"
+    errname.className="error"
+    return false;
+    }
+  if(!pattern.test(username.value)){
+    errname.innerHTML="用户名不合规范"
+    errname.className="error"
+    return false;
+    }
+   else{
+     errname.innerHTML="OK"
+     errname.className="success";
+     return true;
+     }
+   //通过ajax查询用户名已被注册
+
+  }
+  //验证密码
+function checkPassword(){
+  var userpasswd = document.getElementById('userPasword');
+  var errPasswd = document.getElementById('passwordErr');
+  var pattern = /^\w{4,16}$/; //密码要在4-8位
+  if(!pattern.test(userpasswd.value)){
+    errPasswd.innerHTML="密码不合规范"
+    errPasswd.className="error"
+    return false;
+    }
+   else{
+     errPasswd.innerHTML="OK"
+     errPasswd.className="success";
+     return true;
+     }
+  }
+  //确认密码
+  function ConfirmPassword(){
+  var userpasswd = document.getElementById('userPasword');
+  var userConPassword = document.getElementById('userConfirmPasword');
+  var errConPasswd = document.getElementById('conPasswordErr');
+  if((userpasswd.value)!=(userConPassword.value) || userConPassword.value.length == 0){
+    errConPasswd.innerHTML="上下密码不一致"
+    errConPasswd.className="error"
+    return false;
+    }
+   else{
+     errConPasswd.innerHTML="OK"
+     errConPasswd.className="success";
+     return true;
+     }
+  }
+//验证手机号
+  function checkPhone(){
+  var userphone = document.getElementById('userPhone');
+  var phonrErr = document.getElementById('phoneErr');
+  var pattern = /^1[34578]\d{9}$/; //验证手机号正则表达式
+  if(!pattern.test(userphone.value)){
+    phonrErr.innerHTML="手机号码不合规范"
+    phonrErr.className="error"
+    return false;
+    }
+   else{
+     phonrErr.innerHTML="OK"
+     phonrErr.className="success";
+     return true;
+     }
+  }
+  function checkEmail(){
+  var useremail = document.getElementById('userEmail');
+  var phonrErr = document.getElementById('emailErr');
+  //var pattern = /^1[34578]\d{9}$/; //验证手机号正则表达式
+  var pattern = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+  if(!pattern.test(useremail.value)){
+    emailErr.innerHTML="邮箱不合规范"
+    emailErr.className="error"
+    return false;
+    }
+   else{
+     emailErr.innerHTML="OK"
+     emailErr.className="success";
+     return true;
+     }
+  }
+</script>
+  </div>
+<div id="dibu">
+    <div id="dibuzhongbu">
+    <table width="1048" border="0">
+  <tr>
+    <td align="center">&nbsp;</td>
+  </tr>
+<tr>
+    <td align="center">&nbsp;&nbsp; 浅音乐</td>
+  </tr>
+  <tr>
+    <td align="center">© 2021 SHALLOW DREAM.All Rights Reserved.</td>
+  </tr>
+</table>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

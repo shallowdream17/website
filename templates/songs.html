@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>浅音乐</title>
+<link rel=stylesheet type=text/css href="/static/css/style.css">
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div id="Jay">
+  <div id="daohanglan">
+    <div id="daohangzhongbu">
+      <div id="logo"><a href="http://127.0.0.1:8000">浅音乐</a></div>
+      <!-- 下拉导航开始 -->
+      <div id="my-daohanglan">
+        <ul>
+          <li><a href="http://127.0.0.1:8000" >首页</a></li>
+          <li><a href="zhuanji" >推荐</a></li>
+          <li><a href="#" >试听</a> <img src="/static/images/xiajiantou.svg" alt="" width="12" height="12">
+            <ul>
+              <li><a href="yyh" >千千阙歌</a></li>
+          <li><a href="sjmr" >心做し</a></li>
+				<li><a href="shbk" >Walk Thru Fire</a></li>
+				<li><a href="wsrcxx" >夏天的风</a></li>
+            </ul>
+          </li>
+          {% if users %}
+            <li style="color: #fa79d7">欢迎您:<em>{{ users.name }}</em>
+            <ul>
+                <li><a href="my">个人页面</a></li>
+                <li><a href="changepwd">修改密码</a></li>
+                <li><a href="logout">注销</a></li>
+            </ul>
+            </li>
+            {% else %}
+            <li><a href="" >登录</a> <img src="/static/images/xiajiantou.svg" width="12" height="12">
+              <ul>
+              <li><a href="login" >登录</a></li>
+              <li><a href="register" >注册</a></li>
+              </ul>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      <!-- 下拉导航结束 -->
+    </div>
+  </div>
+
+  <div id="w1050">
+  <table width="1048" border="0">
+  <tr>
+    <td align="center" valign="top"><img src="{{ info.photo_song_url }}" width="1050" height="360"></td>
+    </tr>
+  <tr>
+    <td align="center" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><table width="99%" border="0">
+      <tr>
+        <td width="31%" height="268"><img src="{{ info.photo_songer_url }}" width="246" height="246"></td>
+        <td width="69%" align="center" valign="top" bgcolor="#f2f2f2"><table width="85%" border="0">
+          <tr>
+            <td><br>
+              {{ info.words }}</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  </table>
+
+  </div>
+
+{#<button id="btn_zan" style="width: 35px;">{{ info.good }}</button>#}
+
+<div class="row" style="margin-top: 250px;">
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="comment-area">
+        <div>点赞:
+        <form action="songs" method="GET">
+        {% csrf_token %}
+        <input type="hidden" name="shoucang" value="0" id="v11">
+        <button name="code" id="btn_22" value="{{ info.code }}"  style="width: 100px;">{{ info.good }}</button>
+            <script>
+                $('#btn_22').click(function(){
+                var num = $("#v11").val();
+                $('#v11').val(num+1);
+                });
+            </script>
+        </form>
+        </div>
+        <h3 class="comment-area-title">提交评论</h3>
+            {% if users.name %}
+                {{ users.name }},欢迎评论！
+                <form id="comment_form" action="" method="POST">
+                    {% csrf_token %}
+                    <textarea id="content_text" name="text"  width="100%" overflow="auto" word-break="break-all"></textarea>
+{#                    <input type="hidden" name="object_id" value="{{ blog.pk }}">#}
+                    <input type="hidden" name="content_type" value="blog">
+                    <br>
+                    <span id="comment_error" class="text-danger" style="color: #FF0000"></span><br>
+                    <input type="submit" value="评论">
+                </form>
+            {% else %}
+            请登录后发表评论!
+            {% endif %}
+        </div>
+        <div class="comment-area">
+            <h3 class="comment-area-title">评论列表</h3>
+            <div id="comment_list">
+                {% if comments %}
+                {% for comment in comments %}
+                    <div>
+                        {{ comment.user_id }}
+                        ({{ comment.comment_time |date:"Y-m-d H:i:s"}}):
+                        {{ comment.text }}
+                    </div>
+                {% endfor %}
+                {% else %}
+                  暂无评论
+                {% endif %}
+            </div>
+        </div>
+            <script type="text/javascript">
+                var aaa = JSON.parse('{{ jsinfo|safe }}');
+                {#alert(666);#}
+                {#alert(aaa['jsinfo']);#}
+                $("#comment_form").submit(function(){
+                    //异步提交
+                     //var myDate = new Date();
+
+                    {#var houzhuishuju={{ info.code }};#}
+                    {#alert(myData);#}
+                    $.ajax({
+                       url :'http://127.0.0.1:8000/songs?code='+aaa['jsinfo'],
+                        //url:'http://127.0.0.1:8000/yyh?'+myDate.getMinutes()+myDate.getSeconds(),
+                        type:'POST',
+                        data:$(this).serialize(),
+                        cache:false,
+                        success:function(data){
+                           console.log(data);
+                           if(data['status']=="SUCCESS"){
+                                //插入数据
+                                var comment_html='<div>' + data['username'] +
+                                    ' ('+ data['comment_time']+'): '+
+                                    data['text']+'</div>';
+                                $("#comment_list").prepend(comment_html);
+                                CKEDITOR.instances['content_text'].setData('');
+                           }else{
+                               //显示错误信息
+                                $("#comment_error").text(data['message']);
+                           }
+                        },
+                        error:function (xhr){
+                           console.log(xhr);
+                        }
+                    });
+                    return false;
+                });
+
+
+
+            </script>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="dibu">
+    <div id="dibuzhongbu" >
+    <table width="1048" border="0">
+  <tr>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">&nbsp;&nbsp; 浅音乐</td>
+  </tr>
+  <tr>
+    <td align="center">© 2021 SHALLOW DREAM.All Rights Reserved.</td>
+  </tr>
+</table>
+
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>

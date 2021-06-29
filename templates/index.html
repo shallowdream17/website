@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+{% block kxzy %}
+    <title>浅音乐</title>
+{% endblock %}
+
+<link rel=stylesheet type=text/css href="/static/css/style.css">
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/js.js"></script>
+</head>
+
+<body>
+<div id="Jay">
+  <div id="daohanglan">
+    <div id="daohangzhongbu">
+      <div id="logo"><a href="">浅音乐</a></div>
+      <!-- 下拉导航开始 -->
+  <div id="my-daohanglan" >
+  <ul>
+	  <li><a href="" >首页</a></li>
+      <li><a href="zhuanji" >推荐</a></li>
+	  <li><a href="#" >试听</a> <img src="/static/images/xiajiantou.svg" width="12" height="12">
+		  <ul>
+          <li><a href="yyh" >千千阙歌</a></li>
+          <li><a href="sjmr" >心做し</a></li>
+				<li><a href="shbk" >Walk Thru Fire</a></li>
+				<li><a href="wsrcxx" >夏天的风</a></li>
+			</ul>
+        </li>
+        {% if users %}
+        <li style="color: #fa79d7">欢迎您:<em>{{ users.name }}</em>
+        <ul>
+            <li><a href="my">个人页面</a></li>
+                <li><a href="changepwd">修改密码</a></li>
+                <li><a href="logout">注销</a></li>
+        </ul>
+        </li>
+        {% else %}
+        <li><a href="" >登录</a> <img src="/static/images/xiajiantou.svg" width="12" height="12">
+		  <ul>
+          <li><a href="login" >登录</a></li>
+          <li><a href="register" >注册</a></li>
+          </ul>
+        </li>
+        {% endif %}
+{#      <li><a href="login" >登录</a></li>#}
+
+  </ul>
+  </div>
+         <!-- 下拉导航结束 -->
+    </div>
+  </div>
+    <!-- 轮播banner开始 -->
+<div id="banner1">
+  <div id="picbox">
+    <div id="pic1" class="pics"></div>
+    <div id="pic2" class="pics"></div>
+    <div id="pic3" class="pics"></div>
+    <div id="pic4" class="pics"></div>
+    <div id="pic5" class="pics"></div>
+  </div>
+  <div id="nav">
+    <li id="navli1" class="anvli navnow" value="1"></li>
+    <li id="navli2" class="anvli" value="2"></li>
+    <li id="navli3" class="anvli" value="3"></li>
+    <li id="navli4" class="anvli" value="4"></li>
+    <li id="navli5" class="anvli" value="5"></li>
+  </div>
+  <div id="pre" class="hbut"></div>
+  <div id="next" class="hbut"></div>
+</div>
+  <!-- 轮播banner 结束 -->
+  <div id="tuijian">
+    <div id="tuijian01">
+      <div id="tuijiantu"><a href=""><img src="/static/images/tuijian01.jpg" width="290" height="204" /></a></div>
+      <div id="tuijianwenzi"><table width="100%" border="0">
+  <tr>
+    <td height="40">郎朗和妈妈现身周杰伦演唱会...</td>
+  </tr>
+  <tr>
+    <td><a href="https://baijiahao.baidu.com/s?id=1654479190579613205&wfr=spider&for=pc" class="blue" target="_blank">了解更多</a></td>
+  </tr>
+</table>
+</div>
+    </div>
+
+    <div id="tuijian02">
+      <div id="tuijiantu2"><a href="#"><img src="/static/images/tuijian02.jpg" width="290" height="204" /></a></div>
+      <div id="tuijianwenzi2"><table width="100%" border="0">
+  <tr>
+    <td height="40">周杰伦昆凌新年晒全家福，幸福感爆棚...</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.sohu.com/a/364097420_253355" class="blue" target="_blank">了解更多</a></td>
+  </tr>
+</table>
+</div>
+    </div>
+    <div id="tuijian02">
+      <div id="tuijiantu2"><a href="#"><img src="/static/images/tuijian03.jpg" width="290" height="204" /></a></div>
+      <div id="tuijianwenzi2"><table width="100%" border="0">
+  <tr>
+    <td height="40">周杰伦晒演唱会照片，要做就要做第一</td>
+  </tr>
+  <tr>
+    <td><a href="https://baijiahao.baidu.com/s?id=1654414939827576035&wfr=spider&for=pc" class="blue" target="_blank">了解更多</a></td>
+  </tr>
+</table>
+</div>
+    </div>
+
+  </div>
+  <div id="xinwen">
+    <div id="xinwenzi"><a href="https://news.cctv.com/special/2021wgyb/index.shtml" class="black" target="_blank">中国正能量</a><br />
+    <a href="https://baijiahao.baidu.com/s?id=1703855668624502714&wfr=spider&for=pc" class="black" target="_blank">颁授仪式今天上午10时举行！第一时间带你看“七一勋章”</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703851661605214229&wfr=spider&for=pc" class="black" target="_blank">姆巴佩失点，法国队爆冷出局，姆巴佩追赶梅西、C罗还差太远！</a> <br />
+    <a href="http://china.qianlong.com/2021/0629/5968465.shtml" class="black" target="_blank">致敬！国宾护卫队为功勋党员护航</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703858782231504651&wfr=spider&for=pc" class="black" target="_blank">100字样焰火盛放鸟巢上空</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703849161845426620" class="black" target="_blank">电影都拍不出来！奇迹之夜：23粒进球+5大瞬间，世界杯冠亚军回家</a> <br />
+    <a href="https://m.gmw.cn/baijia/2021-06/28/1302381230.html" class="black" target="_blank">广州不再限制堂食每桌10人</a> <br />
+
+</div>
+    <div id="xinwenzi">
+    <a href="https://baijiahao.baidu.com/s?id=1703857380973506263&wfr=spider&for=pc" class="black" target="_blank">颐和园内，一少年勇救落水男孩！竟是《隐秘的角落》里的他</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703827529566872185&wfr=spider&for=pc" class="black" target="_blank">16地平均工资出炉！江苏首破10万大关，你那如何？</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703831901269185208&wfr=spider&for=pc" class="black" target="_blank">疯狂5-3！欧洲杯经典大战诞生：西班牙加时淘汰克罗地亚挺进8强！</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703800916352948278&wfr=spider&for=pc" class="black" target="_blank">中国男篮奥运落选赛12人名单出炉 赵岩昊因伤落选</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703790784526254337&wfr=spider&for=pc" class="black" target="_blank">又被罚！雅诗兰黛因虚假宣传被罚40万</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703818553727213012&wfr=spider&for=pc" class="black" target="_blank">多家银行回应房贷暂停传闻 上热搜 网友：通往房市的资金通道越收越紧</a> <br />
+    <a href="https://baijiahao.baidu.com/s?id=1703801684005883702&wfr=spider&for=pc" class="black" target="_blank">@司机朋友：今晚调油价 加满一箱92号汽油多花9元</a> <br />
+    </div>
+  </div>
+  <div id="dibu">
+    <div id="dibuzhongbu">
+    <table width="1048" border="0">
+  <tr>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">&nbsp;&nbsp; 浅音乐</td>
+  </tr>
+  <tr>
+    <td align="center">© Shallow Dream. All Rights Reserved.</td>
+  </tr>
+</table>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
